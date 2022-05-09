@@ -7,6 +7,7 @@ import {Header} from 'react-native-elements'
 
 export default function SignUp({route,navigation}) {
  // const navigation = useNavigation();
+
   return (
       
   <View style={{ flex: 1}}>
@@ -22,7 +23,7 @@ export default function SignUp({route,navigation}) {
     <View style={styles.container}>
 
       <View style={styles.input}>
-      <TextInput placeholder="Nome" style={styles.textPlaceholder}></TextInput>
+      <TextInput placeholder="Nome" style={styles.textPlaceholder} ></TextInput>
       </View>
 
       <View style={styles.input}>
@@ -30,15 +31,15 @@ export default function SignUp({route,navigation}) {
       </View>
       
       <View style={styles.input}>
-      <TextInput placeholder="Email" style={styles.textPlaceholder}></TextInput>
+      <TextInput placeholder="Email" style={styles.textPlaceholder} ></TextInput>
       </View>
 
       <View style={styles.input}>
       <TextInput placeholder="Senha" style={styles.textPlaceholder} secureTextEntry={true} ></TextInput>
       </View>
             
-        <TouchableOpacity style={styles.signInButton}>
-          <Text style={styles.textButton}>Salvar</Text>
+        <TouchableOpacity style={styles.signInButton} >
+          <Text style={styles.textButton} >Salvar</Text>
         </TouchableOpacity>
         </View>
     </View>  

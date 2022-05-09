@@ -1,4 +1,6 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {Header} from 'react-native-elements'
@@ -6,20 +8,22 @@ import { ListItem, Avatar } from 'react-native-elements'
 
 
 
+
 export default function ListaContatos({route,navigation}) {
  // const navigation = useNavigation();
- const list = [
-    {
-      name: 'Amy Farha',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-      subtitle: '81 9828327237'
-    },
-    {
-      name: 'Chris Jackson',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-      subtitle: '81 9822332347'
-    }
-  ]
+
+ const [getData, setData] = useState([]);
+
+ useEffect(()=>{
+         
+   async function resgataUsuario(){
+       const result = await axios(
+           'http://professornilson.com/testeservico/clientes',
+         );
+         setData(result.data);
+   }
+   resgataUsuario();
+ })
 
   return (  
   <View style={{ flex: 1}}>
@@ -33,12 +37,12 @@ export default function ListaContatos({route,navigation}) {
 
 <View>
   {
-    list.map((l, i) => (
+    getData.map((l, i) => (
       <ListItem onPress={() =>navigation.navigate('AlteracaoContato')} key={i} bottomDivider>
-        <Avatar source={{uri: l.avatar_url}} />
+        <Avatar source={{uri: "https://ih1.redbubble.net/image.2961457200.6670/st,small,507x507-pad,600x600,f8f8f8.jpg"}} />
         <ListItem.Content>
-          <ListItem.Title>{l.name}</ListItem.Title>
-          <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
+          <ListItem.Title>{l.nome}</ListItem.Title>
+          <ListItem.Subtitle>{l.telefone}</ListItem.Subtitle>
         </ListItem.Content>
       </ListItem>
     ))

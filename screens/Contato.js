@@ -1,4 +1,6 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {Header} from 'react-native-elements'
@@ -7,6 +9,48 @@ import {Header} from 'react-native-elements'
 
 export default function Contato({route,navigation}) {
  // const navigation = useNavigation();
+
+
+ const [getNome,setNome] = useState();
+ const [getCpf,setCpf] = useState();
+ const [getTelefone,setTelefone] = useState();
+
+
+ useEffect(()=>{
+  if(route.params){
+      const { nome } =  route.params
+      const {cpf} = route.params
+      const { telefone } =  route.params 
+      
+      setNome(nome)
+      setCpf(cpf)
+      setTelefone(telefone)
+  }
+
+},[]) 
+
+async function inserirDados(){
+        
+  axios.post('http://professornilson.com/testeservico/clientes', {
+      nome: getNome,
+      cpf: getCpf,
+      telefone: getTelefone
+    })
+    .then(function (response) {
+      setNome('');
+      setCpf('');
+      setTelefone(''); 
+      showMessage({
+          message: "Registro Cadastrado com sucesso",
+          type: "success",
+        }); 
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });     
+}
+
   return (
       
   <View style={{ flex: 1}}>
@@ -22,18 +66,21 @@ export default function Contato({route,navigation}) {
     <View style={styles.container}>
 
       <View style={styles.input}>
-      <TextInput placeholder="Nome" style={styles.textPlaceholder}></TextInput>
+      <TextInput placeholder="Nome" style={styles.textPlaceholder} onChangeText={text => setNome(text)}
+      value={getNome}></TextInput>
       </View>
 
       <View style={styles.input}>
-      <TextInput placeholder="Email" style={styles.textPlaceholder}></TextInput>
+      <TextInput placeholder="Cpf" style={styles.textPlaceholder} onChangeText={text => setCpf(text)}
+      value={getCpf}></TextInput>
       </View>
       
       <View style={styles.input}>
-      <TextInput placeholder="Telefone" style={styles.textPlaceholder}></TextInput>
+      <TextInput placeholder="Telefone" style={styles.textPlaceholder} onChangeText={text => setTelefone(text)}
+      value={getTelefone}></TextInput>
       </View>
      
-        <TouchableOpacity style={styles.signInButton}>
+        <TouchableOpacity style={styles.signInButton} onPress={() => inserirDados()}>
           <Text style={styles.textButton}>Salvar</Text>
         </TouchableOpacity>
         </View>
