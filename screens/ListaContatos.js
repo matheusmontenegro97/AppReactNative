@@ -5,6 +5,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {Header} from 'react-native-elements'
 import { ListItem, Avatar } from 'react-native-elements'
+import FlashMessage from "react-native-flash-message";
+import { showMessage, hideMessage } from "react-native-flash-message";
 
 
 
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
 
   loginButton:{
     height:50,
-    witdh:"80%",
+   /* witdh:"80%", */
     borderStyle:"solid",
     borderWidth:0.5,
     marginTop:20,
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
 
   signInButton:{
     height:50,
-    witdh:"80%",
+  /*  witdh:"80%", */
     borderStyle:"solid",
     borderWidth:0.5,
     marginTop:20,

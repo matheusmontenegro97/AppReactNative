@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
-import {Header} from 'react-native-elements'
+import {Header} from 'react-native-elements';
+import FlashMessage from "react-native-flash-message";
+import { showMessage, hideMessage } from "react-native-flash-message";
 
 
 
@@ -14,17 +16,21 @@ export default function Contato({route,navigation}) {
  const [getNome,setNome] = useState();
  const [getCpf,setCpf] = useState();
  const [getTelefone,setTelefone] = useState();
+ const [getId,setId] = useState();
 
 
  useEffect(()=>{
   if(route.params){
       const { nome } =  route.params
       const {cpf} = route.params
-      const { telefone } =  route.params 
+      const { telefone } =  route.params
+      const { id } = route.params
+      
       
       setNome(nome)
       setCpf(cpf)
       setTelefone(telefone)
+      setId(id);
   }
 
 },[]) 
@@ -39,7 +45,8 @@ async function inserirDados(){
     .then(function (response) {
       setNome('');
       setCpf('');
-      setTelefone(''); 
+      setTelefone('');
+      setId('');
       showMessage({
           message: "Registro Cadastrado com sucesso",
           type: "success",

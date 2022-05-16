@@ -2,11 +2,42 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {Header} from 'react-native-elements'
-
-
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useState } from 'react';
+import { initializeApp } from "firebase/app";
 
 export default function SignUp({route,navigation}) {
  // const navigation = useNavigation();
+
+  const[email, setEmail] = useState('')
+  const[senha, setSenha] = useState('')
+
+ const firebaseConfig = {
+  apiKey: "AIzaSyCy60QCztxEo9xvTp6O7bPooZqWFG05wZI",
+  authDomain: "appmobilematheus.firebaseapp.com",
+  projectId: "appmobilematheus",
+  storageBucket: "appmobilematheus.appspot.com",
+  messagingSenderId: "1044712664622",
+  appId: "1:1044712664622:web:f0f55d2e9c15f90e6e39bf"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+ function cadastrofirebase() {
+  const auth = getAuth();
+  createUserWithEmailAndPassword(auth, email, senha)
+    .then((userCredential) => {
+      // Signed in
+      console.log('funcionando')
+      const user = userCredential.user;
+      navigation.navigate('Login')  
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+}
 
   return (
       
@@ -31,14 +62,14 @@ export default function SignUp({route,navigation}) {
       </View>
       
       <View style={styles.input}>
-      <TextInput placeholder="Email" style={styles.textPlaceholder} ></TextInput>
+      <TextInput placeholder="Email" value={email} onChangeText={email=> setEmail(email)} style={styles.textPlaceholder} ></TextInput>
       </View>
 
       <View style={styles.input}>
-      <TextInput placeholder="Senha" style={styles.textPlaceholder} secureTextEntry={true} ></TextInput>
+      <TextInput placeholder="Senha" value={senha} onChangeText={senha => setSenha(senha)} style={styles.textPlaceholder} secureTextEntry={true} ></TextInput>
       </View>
             
-        <TouchableOpacity style={styles.signInButton} >
+        <TouchableOpacity style={styles.signInButton}  onPress={()=>{cadastrofirebase()}}>
           <Text style={styles.textButton} >Salvar</Text>
         </TouchableOpacity>
         </View>

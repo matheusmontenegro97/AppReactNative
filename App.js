@@ -5,11 +5,13 @@ import LoginScreen from './screens/Login';
 import CadastroScreen from './screens/Cadastro';
 import ListaContatoScreen from './screens/ListaContatos'
 import ContatoScreen from './screens/Contato'
-import AlteracaoContatoScreen from './screens/AlteracaoContato'
+import AlteracaoContatoScreen from './screens/AlteracaoContato';
+import { initializeApp } from "firebase/app";
 
 const Stack = createNativeStackNavigator();
 
  export default function App() {
+
   return (
 
      <NavigationContainer>

@@ -4,6 +4,8 @@ import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {Header} from 'react-native-elements';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import FlashMessage from "react-native-flash-message";
+import { showMessage, hideMessage } from "react-native-flash-message";
 
 
 
@@ -12,22 +14,38 @@ export default function Contato({route,navigation}) {
 
  const [getNome,setNome] = useState();
  const [getCpf,setCpf] = useState();
- const [getTelefone,setTelefone] = useState();
+const [getTelefone,setTelefone] = useState();
  const [getId,setId] = useState();
+ const [getAlterar,setAlterar] = useState();
+ const [getData, setData] = useState([]);
+ 
 
 
  useEffect(()=>{
+
+  async function resgataUsuario(){
+    const result = await axios(
+        'http://professornilson.com/testeservico/clientes',
+      );
+      setData(result.data);
+      resgataUsuario();
+}
+
+
+
   if(route.params){
     const { nome } =  route.params 
     const { cpf } = route.params 
     const { telefone } = route.params
     const { id } = route.params
+    const { alterar } =  route.params
 
 
       setNome(nome);
-      setTelefone(telefone);
       setCpf(cpf);
+      setTelefone(telefone);
       setId(id);
+      setAlterar(alterar)
       
   }
       
@@ -61,7 +79,7 @@ export default function Contato({route,navigation}) {
 
   function excluirDados(){
 
-    const result =  axios.delete('http://professornilson.com/testeservico/clientes/'+getId, {
+    const result =  axios.delete('http://professornilson.com/testeservico/'+getId, {
         nome: getNome,
         cpf: getCpf,
         telefone: getTelefone
@@ -75,6 +93,7 @@ export default function Contato({route,navigation}) {
           message: "Registro Excluido com Sucesso!!",
           type: "danger",
         });
+        navigation.navigate('ListaContato')
         console.log(response);
       })
       .catch(function (error) {
@@ -95,6 +114,7 @@ export default function Contato({route,navigation}) {
   centerComponent={{ text: 'Editar Contato', style: { color: '#fff', fontSize:25} }}
 />
 
+
     <View style={styles.container}>
 
       <View style={styles.input}>
@@ -112,7 +132,7 @@ export default function Contato({route,navigation}) {
       value={getTelefone}></TextInput>
       </View>
      
-        <TouchableOpacity style={styles.signInButton} onPress={() => editarDados()}>
+      <TouchableOpacity style={styles.signInButton} onPress={() => editarDados()}>
           <Text style={styles.textButton}>Alterar</Text>
         </TouchableOpacity>
 
