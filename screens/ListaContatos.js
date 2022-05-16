@@ -40,7 +40,13 @@ export default function ListaContatos({route,navigation}) {
 <View>
   {
     getData.map((l, i) => (
-      <ListItem onPress={() =>navigation.navigate('AlteracaoContato')} key={i} bottomDivider>
+      <ListItem key={i} onPress={() =>navigation.navigate('AlteracaoContato', 
+        {
+          nome:l.nome,
+          telefone:l.telefone,
+          cpf:l.cpf,
+          id:l.id
+      })}  bottomDivider>
         <Avatar source={{uri: "https://ih1.redbubble.net/image.2961457200.6670/st,small,507x507-pad,600x600,f8f8f8.jpg"}} />
         <ListItem.Content>
           <ListItem.Title>{l.nome}</ListItem.Title>

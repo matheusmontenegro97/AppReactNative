@@ -16,36 +16,19 @@ export default function Contato({route,navigation}) {
  const [getCpf,setCpf] = useState();
 const [getTelefone,setTelefone] = useState();
  const [getId,setId] = useState();
- const [getAlterar,setAlterar] = useState();
- const [getData, setData] = useState([]);
  
-
-
  useEffect(()=>{
-
-  async function resgataUsuario(){
-    const result = await axios(
-        'http://professornilson.com/testeservico/clientes',
-      );
-      setData(result.data);
-      resgataUsuario();
-}
-
-
 
   if(route.params){
     const { nome } =  route.params 
     const { cpf } = route.params 
     const { telefone } = route.params
     const { id } = route.params
-    const { alterar } =  route.params
-
 
       setNome(nome);
       setCpf(cpf);
       setTelefone(telefone);
       setId(id);
-      setAlterar(alterar)
       
   }
       
@@ -79,7 +62,7 @@ const [getTelefone,setTelefone] = useState();
 
   function excluirDados(){
 
-    const result =  axios.delete('http://professornilson.com/testeservico/'+getId, {
+    const result =  axios.delete('http://professornilson.com/testeservico/clientes/'+getId, {
         nome: getNome,
         cpf: getCpf,
         telefone: getTelefone
@@ -93,7 +76,6 @@ const [getTelefone,setTelefone] = useState();
           message: "Registro Excluido com Sucesso!!",
           type: "danger",
         });
-        navigation.navigate('ListaContato')
         console.log(response);
       })
       .catch(function (error) {
