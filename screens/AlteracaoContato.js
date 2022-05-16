@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
 
   loginButton:{
     height:50,
-    witdh:"80%",
+    width:"80%",
     borderStyle:"solid",
     borderWidth:0.5,
     marginTop:20,
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
 
   signInButton:{
     height:50,
-    witdh:"80%",
+    width:"80%",
     borderStyle:"solid",
     borderWidth:0.5,
     marginTop:20,

@@ -6,7 +6,7 @@ import CadastroScreen from './screens/Cadastro';
 import ListaContatoScreen from './screens/ListaContatos'
 import ContatoScreen from './screens/Contato'
 import AlteracaoContatoScreen from './screens/AlteracaoContato';
-import { initializeApp } from "firebase/app";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -26,4 +26,5 @@ const Stack = createNativeStackNavigator();
     
   );
 } 
+
 
